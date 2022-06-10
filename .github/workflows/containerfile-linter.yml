@@ -1,5 +1,5 @@
 ---
-name: Containerfile Lint
+name: Containerfile Linter
 
 on:
   push:
@@ -28,8 +28,20 @@ jobs:
           cancel_others: true
           concurrent_skipping: never
 
-  lint:
-    name: Hadolint Action
+  run-lint-alpine:
+    name: Hadolint Action .alpine
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v2.1.0
+        with:
+          dockerfile: .devcontainer/Containerfile.alpine
+
+  run-lint-debian:
+    name: Hadolint Action .ubuntu
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -39,23 +51,3 @@ jobs:
         uses: hadolint/hadolint-action@v2.1.0
         with:
           dockerfile: .devcontainer/Containerfile.ubuntu
-
-  scan:
-    name: Scan config files for vulnerabilities
-    runs-on: ubuntu-latest
-    container:
-      image: docker.io/aquasec/trivy:latest
-      volumes:
-        - "${{ github.workspace }}:/volume"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Scan config Containerfiles for vulnerabilities
-        run: |
-          trivy config \
-          --severity CRITICAL,HIGH \
-          --file-patterns "dockerfile:Containerfile" \
-          /volume
