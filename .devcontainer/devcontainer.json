@@ -3,18 +3,25 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
+			"ASSET":"hugo",
 			"USER_UID": "1000",
 			"USERNAME": "vscode",
-			// "VARIANT": "latest",
-			"VARIANT": "ubuntu"
+			"VARIANT": "ubuntu",
+			"VERSION":"latest"
+			// "VARIANT": "latest"
 		}
 	},
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {},
+	"settings": {
+		"html.format.templating": true
+	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [],
+	"extensions": [
+		"bungcip.better-toml",
+		"davidanson.vscode-markdownlint"
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
