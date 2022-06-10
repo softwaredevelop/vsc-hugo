@@ -23,4 +23,34 @@ RUN \
     echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
     chmod 0440 /etc/sudoers.d/$USERNAME
 
+ARG ASSET=hugo
+ARG VERSION=latest
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN \
+    apt-get update; \
+    apt-get install --no-install-recommends --assume-yes \
+    curl; \
+    apt-get clean && rm -fr /var/lib/apt/lists/*; \
+    case "${VERSION}" in \
+    latest) \
+    VERSION=$(curl --silent https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4)}') \
+    export VERSION ;;\
+    esac; \
+    case $(uname -m) in \
+    aarch) \
+    export ARCH=ARM ;;\
+    aarch64) \
+    export ARCH=ARM64 ;;\
+    i686) \
+    export ARCH=32bit ;;\
+    x86_64) \
+    export ARCH=64bit ;;\
+    esac; \
+    curl -O -L -C - https://github.com/gohugoio/hugo/releases/download/v${VERSION}/${ASSET}_${VERSION}_Linux-${ARCH}.tar.gz; \
+    tar -xf ${ASSET}_${VERSION}_Linux-${ARCH}.tar.gz; \
+    mv hugo /usr/bin/hugo; \
+    rm ${ASSET}_${VERSION}_Linux-${ARCH}.tar.gz; \
+    apt-get clean && rm -fr /var/lib/apt/lists/*
+
 EXPOSE 1313
