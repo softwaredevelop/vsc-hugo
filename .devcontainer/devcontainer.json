@@ -1,10 +1,11 @@
 {
 	"name": "hugo-image",
 	"build": {
-		"dockerfile": "Containerfile.ubuntu",
+		"dockerfile": "Dockerfile",
 		"args": {
 			"USER_UID": "1000",
 			"USERNAME": "vscode",
+			// "VARIANT": "latest",
 			"VARIANT": "ubuntu"
 		}
 	},
@@ -17,7 +18,7 @@
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		"1313:1313"
+		1313
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
