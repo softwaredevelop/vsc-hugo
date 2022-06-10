@@ -6,9 +6,9 @@
 			"ASSET":"hugo",
 			"USER_UID": "1000",
 			"USERNAME": "vscode",
-			"VARIANT": "ubuntu",
-			"VERSION":"latest"
-			// "VARIANT": "latest"
+			// "VARIANT": "ubuntu",
+			"VERSION":"latest",
+			"VARIANT": "latest"
 		}
 	},
 
