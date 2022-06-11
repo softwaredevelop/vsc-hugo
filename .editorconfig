@@ -16,3 +16,6 @@ indent_size = 2
 
 [devcontainer.json]
 indent_style = tab
+
+[.gitmodules]
+indent_style = tab
