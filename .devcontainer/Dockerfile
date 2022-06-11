@@ -36,7 +36,7 @@ RUN \
     export VERSION ;;\
     esac; \
     case $(uname -m) in \
-    aarch) \
+    aarch32) \
     export ARCH=ARM ;;\
     aarch64) \
     export ARCH=ARM64 ;;\
