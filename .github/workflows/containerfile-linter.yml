@@ -40,7 +40,7 @@ jobs:
         with:
           dockerfile: .devcontainer/Containerfile.alpine
 
-  run-lint-debian:
+  run-lint-ubuntu:
     name: Hadolint Action .ubuntu
     runs-on: ubuntu-latest
     steps:
